@@ -1,2 +1,6 @@
 .venv/
 ccwc.egg-info/
+__pycache__/
+
+*.pyc
+*.pyo
