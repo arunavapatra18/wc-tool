@@ -1,4 +1,5 @@
 import os
+import re
 
 class wc():
     """
@@ -22,7 +23,7 @@ class wc():
         """
         _file = self.file_to_process
         if os.path.exists(os.path.join(os.getcwd(),_file)):
-            with open(_file, 'rb') as open_file:
+            with open(_file, 'r') as open_file:
                 num_bytes = open_file.seek(0,2)
             return num_bytes
         else:
@@ -36,10 +37,27 @@ class wc():
         """
         _file = self.file_to_process
         if os.path.exists(os.path.join(os.getcwd(),_file)):
-            with open(_file, 'rb') as open_file:
+            with open(_file, 'r') as open_file:
                 num_lines = 0
                 for line in open_file:
                     num_lines = num_lines + 1
             return num_lines
+        else:
+            assert _file == None
+
+    def count_words(self):
+        """Method to find the number of words in a file
+
+        Returns:
+            int: Number of words in the file
+        """
+        _file = self.file_to_process
+        if os.path.exists(os.path.join(os.getcwd(),_file)):
+            with open(_file, 'r') as open_file:
+                num_words = 0
+                for line in open_file:
+                    words = line.split()
+                    num_words += len(words)
+            return num_words
         else:
             assert _file == None
