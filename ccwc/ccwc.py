@@ -1,63 +1,25 @@
-import os
-import re
-
 class wc():
     """
     wc class: Contains methods to process the input file
     """
-    file_to_process: str
-
-    def get_file(self, filename):
-        """Method to get the filename from cli
+    def extract_info(open_file):
+        """Method to extract count of byte, line, word and char.
 
         Args:
-            filename (str): filename
-        """
-        self.file_to_process = filename
-
-    def count_bytes(self):
-        """Method to find the number of bytes in a file
+            open_file (BufferedReader): The file to process
 
         Returns:
-            int: Number of bytes in the file
+            int, int, int, int: byte count, line count, word count, char count
         """
-        _file = self.file_to_process
-        if os.path.exists(os.path.join(os.getcwd(),_file)):
-            with open(_file, 'r') as open_file:
-                num_bytes = open_file.seek(0,2)
-            return num_bytes
-        else:
-            assert _file == None
-            
-    def count_lines(self):
-        """Method to find the number of lines in a file
+        byte_count = 0
+        line_count = 0
+        word_count = 0
+        char_count = 0
 
-        Returns:
-            int: Number of lines in the file
-        """
-        _file = self.file_to_process
-        if os.path.exists(os.path.join(os.getcwd(),_file)):
-            with open(_file, 'r') as open_file:
-                num_lines = 0
-                for line in open_file:
-                    num_lines = num_lines + 1
-            return num_lines
-        else:
-            assert _file == None
-
-    def count_words(self):
-        """Method to find the number of words in a file
-
-        Returns:
-            int: Number of words in the file
-        """
-        _file = self.file_to_process
-        if os.path.exists(os.path.join(os.getcwd(),_file)):
-            with open(_file, 'r') as open_file:
-                num_words = 0
-                for line in open_file:
-                    words = line.split()
-                    num_words += len(words)
-            return num_words
-        else:
-            assert _file == None
+        for line in open_file:
+            byte_count += len(line)
+            line_count += 1
+            word_count += len(line.split())
+            char_count += len(line.decode())
+        
+        return byte_count, line_count, word_count, char_count
